@@ -8,13 +8,16 @@ namespace Taynftmf.SimpleLogger.Tests
 
     public class SimpleLoggerTests
     {
-        private const string TestLogFile = "test-log.txt";
+        private const string TestLogFile = "test.log";
         private const string ConfigFileName = "log-setup.txt";
         private readonly string _configFilePath;
+        private readonly string _logFilePath;
 
         public SimpleLoggerTests()
         {
             _configFilePath = Path.Combine(Path.GetTempPath(), ConfigFileName);
+            _logFilePath = Path.Combine(Path.GetTempPath(), TestLogFile);
+            File.Delete(_logFilePath);
         }
 
         [Fact]
@@ -22,13 +25,15 @@ namespace Taynftmf.SimpleLogger.Tests
         {
             // Arrange
             if (File.Exists(_configFilePath))
+            {
                 File.Delete(_configFilePath);
+            }
 
             // Act
             SimpleLogger.Log("Test message");
 
             // Assert
-            Assert.False(File.Exists(TestLogFile));
+            Assert.False(File.Exists(_logFilePath));
         }
 
         [Fact]
