@@ -32,7 +32,8 @@
                 using (StreamWriter writer = new StreamWriter(logFile, true))
                 {
                     string allKeywords = string.Join(", ", keywords.OrderBy(keyword => keyword));
-                    writer.WriteLine($"{DateTime.Now} ['{allKeywords}']: {message}");
+                    string now = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
+                    writer.WriteLine($"{now} ['{allKeywords}']: {message}");
                 }
             }
         }
