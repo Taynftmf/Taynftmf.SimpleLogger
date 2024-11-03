@@ -23,8 +23,11 @@
             // The first line is the log file name
             string logFile = lines[0].Trim();
 
+            string[] givenKeywords = lines.Skip(1).ToArray();
+
             // Check if there are more lines for keywords and validate the log keyword
-            if (lines.Length > 1 && keywords.Any(item => lines.Contains(item)))
+            // log everything, i.e. ignore keywords, if no keywords are given
+            if (givenKeywords.Length == 0 || (givenKeywords.Length > 0 && keywords.Any(item => givenKeywords.Contains(item))))
             {
                 using (StreamWriter writer = new StreamWriter(logFile, true))
                 {
